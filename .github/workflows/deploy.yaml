@@ -3,9 +3,12 @@ name: Build & Deploy to GitHub Pages
 on:
   push:
     branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
+  # Build job
   deploy:
     runs-on: ubuntu-latest
 
@@ -15,15 +18,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: latest
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build Angular
-        run: npx ng build --configuration production --output-path=dist/portafolio --base-href=/portafolio/
+      - name: Build
+        run: npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to Github pages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx angular-cli-ghpages --dir=dist/portafolio --repo=https://github.com/CaptainChala/portafolio.git --name="CaptainChala" --email="captainchala@hotmail.com" --branch=gh-pages --base-href=/portafolio/
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          npm run ng -- deploy --repo=https://github.com/CaptainChala/portafolio.git --name="CaptainChala" --email="captainchala@hotmail.com" --base-href=/portafolio/
