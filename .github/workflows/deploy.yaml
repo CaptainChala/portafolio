@@ -10,25 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Clona el repositorio
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2️⃣ Instala Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Cambia si usas otra versión
+          node-version: '20'
 
-      # 3️⃣ Instala dependencias
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Build de Angular (producción)
       - name: Build Angular
-        run: ng build --configuration production --output-path=dist/portafolio --base-href=/portafolio/
+        run: npx ng build --configuration production --output-path=dist/portafolio --base-href=/portafolio/
 
-      # 5️⃣ Deploy a GitHub Pages
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
