@@ -1,64 +1,30 @@
-<h2 class="text-2xl mb-5 font-medium text-gray-800 dark:text-neutral-200">
-  Proyectos
-</h2>
+<section id="projects">
+  <h2 class="text-2xl font-semibold text-zinc-100 mb-8">Proyectos</h2>
 
-<!-- Projects Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="projects">
-  <a
-    *ngFor="let project of projects"
-    class="group block relative overflow-hidden rounded-lg bg-white dark:bg-neutral-900 shadow-md"
-    [href]="project.link"
-    target="_blank"
-  >
-    <!-- Nombre del Proyecto -->
-    <div class="p-3">
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-neutral-200">
-        {{ project.name }}
-      </h3>
-
-      <!-- Tecnologías utilizadas -->
-      <p class="text-sm text-gray-600 dark:text-neutral-400 mt-1">
-        <span class="font-medium text-gray-700 dark:text-neutral-300">Tecnologías:</span>
-        <span *ngFor="let tech of project.technologies; let last = last">
-          {{ tech }}<span *ngIf="!last">, </span>
-        </span>
-      </p>
-    </div>
-
-    <!-- Imagen del proyecto -->
-    <div class="relative">
-      <img
-        class="w-full h-48 object-cover bg-gray-100 dark:bg-neutral-800"
-        [src]="project.imageUrl"
-        [alt]="project.name"
-      />
-
-      <!-- Botón de vista al pasar el cursor -->
-      <div
-        class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition"
-      >
-        <div
-          class="flex items-center gap-x-1 py-1 px-2 bg-white border border-gray-200 text-gray-800 rounded-lg dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200"
-        >
-          <svg
-            class="shrink-0 size-3"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
-          </svg>
-          <span class="text-xs">View</span>
+  <div class="grid gap-4 sm:grid-cols-2">
+    @for (p of projects; track p.name) {
+      <article class="flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 hover:border-zinc-700 transition"
+        [class.sm:col-span-2]="p.featured">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="text-lg font-semibold text-zinc-100">{{ p.name }}</h3>
+          @if (p.status) {
+            <span class="shrink-0 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">{{ p.status }}</span>
+          }
         </div>
-      </div>
-    </div>
-  </a>
-</div>
-<!-- End Projects Grid -->
+        <p class="mt-2 text-sm leading-relaxed text-zinc-400 grow">{{ p.description }}</p>
+
+        <ul class="mt-4 flex flex-wrap gap-1.5">
+          @for (t of p.technologies; track t) {
+            <li class="rounded-md bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">{{ t }}</li>
+          }
+        </ul>
+
+        <div class="mt-4 flex gap-4 text-sm">
+          @if (p.live) { <a [href]="p.live" target="_blank" rel="noopener" class="text-emerald-400 hover:underline">Ver sitio ↗</a> }
+          @if (p.repo) { <a [href]="p.repo" target="_blank" rel="noopener" class="text-zinc-300 hover:underline">Código ↗</a> }
+          @else { <span class="text-zinc-500">Repositorio privado</span> }
+        </div>
+      </article>
+    }
+  </div>
+</section>
