@@ -7,6 +7,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   # Build job
   deploy:
@@ -28,6 +31,6 @@ jobs:
 
       - name: Deploy to Github pages
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run ng -- deploy --repo=https://github.com/CaptainChala/portafolio.git --name="CaptainChala" --email="captainchala@hotmail.com" --base-href=/portafolio/
