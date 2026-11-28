@@ -31,7 +31,7 @@ export class Projects {
       description:
         'Sistema de administración para un club de voleibol: alumnos, categorías, mensualidades con pago en línea (Flow), asistencia por encargados y portal del alumno.',
       technologies: ['Django', 'DRF', 'JWT', 'React', 'TypeScript', 'PostgreSQL'],
-      status: 'Cliente real',
+      status: 'En desarrollo',
     },
     {
       name: 'ChanclasWarden',
